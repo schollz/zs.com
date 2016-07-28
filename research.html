@@ -1,0 +1,65 @@
+---
+layout: default
+--- 
+
+
+<div class="col-sm-12">
+<hr>
+            <div class="col-sm-8">
+                    <img src="{{ "/assets/images/zack_poster.jpg" | prepend: site.url }}" alt="Zackary Scholl wins 2014 the Student Research Achievement Award" class="img-rounded img-responsive">  
+
+            </div>
+            <div class="col-sm-4">
+                <p class="lead">Pictured: My poster that won the 2014 Biophysical Society Research Achievement Award</p>
+            </div>
+</div>
+
+
+<div class="col-sm-12">
+    <div class="page">
+    <h2>Recent research:</h2>
+    </div>
+    <div class="page">
+        {% for post in site.posts %}
+            {% if post.archive == false %}
+            {% if post.research == true %}
+            <div class="page-item">
+                <div class="col-sm-8">
+                    <ul class="page-item-title">
+                        <li><time class="timeago meta" datetime="{{ post.date |  date: "%A %-d %B %Y" }}">{{ post.date | date: '%B %d, %Y' }}</time>
+                        <a class="meta pull-right comments-meta" href="{{ post.link }}">link <i class="fa fa-external-link fa-lg"></i></a></li>
+                        <li><a class="title" href="{{ post.url | prepend: site.url }}">{{ post.title }}</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 hide-on-phone">
+                    <ul class="page-item-title pull-right meta">
+                        <li><a href="{{ post.link }}" target="_blank">link <i class="fa fa-external-link"></i></a></li>
+                        <li><a href="{{ post.url | prepend: site.url }}">more <i class="fa fa-ellipsis-h"></i></a></li>
+                        <li><a class="pib-indicator">gist <i class="fa fa-expand"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 page-item-body">
+                    {{post.excerpt}}
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $(".page").children().first().find(".page-item-body").css( "display", "block" );
+    $(".page").children().first().find(".pib-indicator")
+        .find("i").toggleClass("fa-compress").toggleClass("fa-expand");
+
+    $(".page-item .pib-indicator").click(function() {
+        var preview = $(this);
+        preview.find("i").toggleClass("fa-expand").toggleClass("fa-compress");
+        $(this).closest(".page-item").find(".page-item-body").toggle("slow", function() {});
+    });
+});
+</script>
+
